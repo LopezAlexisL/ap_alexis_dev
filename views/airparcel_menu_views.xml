@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="airparcel_shipping_action" model="ir.actions.act_window">
+        <field name="name">Airparcel</field>
+        <field name="res_model">airparcel.shipping</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Sin proyectos
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="airpacel_shipping_menu"
+        name="Airparcel"
+        web_icon='airparcel.shipping,static/description/icon.png'
+        sequence="20"/>
+
+    
+    <menuitem id="airparcel_shipping_submenu" name="Airparcel2" parent="airpacel_shipping_menu" sequence="21"/>
+    
+    <menuitem
+        id="airparcel_proyect_submenu"
+        name="Airparcel3"
+        action="airparcel_shipping_action"
+        parent="airparcel_shipping_submenu"
+        sequence="22"/>
+
+</odoo>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+    
+        <record id="action_report_airparcel_shipping" model="ir.actions.report">
+            <field name="name">Imprimir Producto</field>
+            <field name="model">airparcel.shipping</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">airparcel.report_airparcel_shipping_document</field>
+            <field name="report_file">airparcel.report_airparcel_shipping</field>
+            <field name="binding_model_id" ref="model_airparcel_shipping"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="report_airparcel_shipping_document">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.internal_layout">
+                        <div class="page">
+                            <h1>
+                                AIRPARCEL - INFORME DEL PRODUCTO: <span t-field='doc.product_id_number'/>
+                            </h1>
+                            <div class='container-fluid'>
+                                <div class='row'>
+                                    <div class='col-6' title='Informacion del producto'>
+                                        <div t-if="doc.name">
+                                            <strong>Producto: </strong>
+                                            <span t-field='doc.name'/>
+                                        </div>
+                                        <div t-if="doc.product_type">
+                                            <strong>Categoria: </strong>
+                                            <span t-field='doc.product_type'/>
+                                        </div>
+                                        <div t-if="doc.product_weight">
+                                            <strong>Peso (KG): </strong>
+                                            <span t-field='doc.product_weight'/>
+                                        </div>
+                                        <div t-if="doc.product_price">
+                                            <strong>Precio (USD): <span t-field='doc.product_price'/></strong>
+                                        </div>
+                                        <div t-if="doc.product_package">
+                                            <strong>Tipo de paquete: <span t-field='doc.product_package'/></strong>
+                                        </div>
+                                    </div>
+                                    <div class='col-6' title='Cliente'>
+                                        <div t-if="doc.owner">
+                                            <strong>Cliente: </strong>
+                                            <span t-field='doc.owner'/>
+                                        </div>
+                                        <div t-if="doc.owner_phone">
+                                            <strong>Telefono: </strong>
+                                            <span t-field='doc.owner_phone'/>
+                                        </div>
+                                        <div t-if="doc.owner_email">
+                                            <strong>Email: </strong>
+                                            <span t-field='doc.owner_email'/>
+                                        </div>                                
+                                        <div t-if="doc.owner_address">
+                                            <strong>Direccion: </strong>
+                                            <span t-field='doc.owner_address'/>
+                                        </div>
+                                        <div t-if="doc.owner_city">
+                                            <strong>Ciudad: </strong>
+                                            <span t-field='doc.owner_city'/>
+                                        </div><div t-if="doc.owner_cp">
+                                            <strong>CP: </strong>
+                                            <span t-field='doc.owner_cp'/>
+                                        </div><div t-if="doc.owner_state">
+                                            <strong>Provincia: </strong>
+                                            <span t-field='doc.owner_state'/>
+                                        </div><div t-if="doc.owner_type">
+                                            <strong>Tipo de cliente: </strong>
+                                            <span t-field='doc.owner_type'/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div t-if='doc.barcode'>
+                                <!-- <img t-att-src="'/report/barcode/Code128/'+doc.barcode" style="width:300px;heigth:100px" alt="barcode"/> -->
+                                <img t-att-src="'/report/barcode/QR/'+doc.barcode+' / '+doc.product_id_number+' / '+doc.owner" style="width:200px;height:200px" alt="qr"/>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    
+    </data>
+    
+
+</odoo>
